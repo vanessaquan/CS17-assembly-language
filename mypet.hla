@@ -1,0 +1,9 @@
+program mypet;
+#include( "stdlib.hhf" );
+begin mypet;
+stdout.put( "PPPP   OOO   OOO  DDDD  L     EEEEE !", nl );
+stdout.put( "P   P O   O O   O D   D L     E     !", nl );
+stdout.put( "PPPP  O   O O   O D   D L     EEE   !", nl );
+stdout.put( "P     O   O O   O D   D L     E      ", nl );
+stdout.put( "P      OOO   OOO  DDDD  LLLLL EEEEE !", nl );
+end mypet;

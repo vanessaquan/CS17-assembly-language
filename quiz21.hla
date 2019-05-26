@@ -1,0 +1,42 @@
+program quiz21;
+#include ("stdlib.hhf")
+
+static
+
+start: int8;
+i:     int8;
+j:     int8;
+
+begin quiz21;
+
+stdout.put("Gimme data: " );
+stdin.get(start);
+mov(start, AH);
+mov(0, i);
+mov(AH, j);
+
+forlp:
+       cmp(i, AH);
+jnl endforlp;
+    stdout.put("",start);
+    add(1,i);
+    add(1, start);
+
+    cmp(i, AH);
+    je endforlp;
+
+    sub(1, j);
+    stdout.put("_",j);
+    add(1,i);
+    cmp(i,AH);
+    jne	printdash;
+    jmp forlp;
+    printdash:
+        stdout.put("_");
+
+jmp forlp;
+endforlp:
+
+stdout.put(nl);
+
+end quiz21;

@@ -1,0 +1,83 @@
+// Reference Parameter Template Solution For CS 17 Final
+// CS 17 Students must use this template as the basis for their solution. I hope it will help simplify your development task.
+// Please look at the two TODO: notes below
+
+ program ReferenceProgram;
+#include( "stdlib.hhf" );
+static 
+iValue1 : int16 := 0;
+iValue2 : int16 := 0;
+iValue3 : int16 := 0;
+// TODO: CS 17 Students add code below to implement this function
+// Several hindts are supplied
+procedure make31IfDifference20OrMore( var i : int16; var j : int16; var k : int16 );@nodisplay; @noframe;
+static 
+dReturnAddress : dword;
+A:dword:=0;
+B:dword:=0;
+C:dword:=0;
+D:dword:=0;
+tmp: int16;
+
+begin make31IfDifference20OrMore;
+mov(EBX, A);
+mov(ECX, B);
+mov(EDX, C);
+mov(EAX, D);
+pop(dReturnAddress);
+pop(EDX); //this is the address of k
+pop(ECX); //this is the address of j
+pop(EBX); //this is the address of i
+push(dReturnAddress);
+push(D);
+push(C);
+push(B);
+push(A);
+
+subij:
+mov([EBX], EAX);
+mov(AX, tmp);
+mov([ECX],EAX);
+sub(AX,tmp);
+mov([EDX], EAX);
+sub(AX, tmp);
+cmp(tmp, 20);
+jge makeit31;
+jmp endcompare;
+
+makeit31:
+mov(31,AX);
+mov(AX, [EBX]);
+mov(AX, [ECX]);
+mov(AX, [EDX]);
+jmp endcompare;
+
+endcompare:
+pop(EBX);
+pop(ECX);
+pop(EDX);
+pop(EAX);
+ret();
+end make31IfDifference20OrMore;
+
+begin ReferenceProgram; 
+
+mov( 1, iValue1 );
+mov( 7, iValue2 );
+mov( 3, iValue3 );
+lea(EAX, iValue1);
+push(EAX);
+lea(EAX, iValue2);
+push(EAX);
+lea(EAX, iValue3);
+push(EAX);
+call make31IfDifference20OrMore;
+stdout.put( "the first parameter = " );
+stdout.put( iValue1 );
+stdout.put( " the second parameter = " );
+stdout.put( iValue2 );
+stdout.put( " the third parameter = " );
+stdout.put( iValue3 );
+stdout.newln();
+
+end ReferenceProgram;

@@ -1,0 +1,112 @@
+program Unit11;
+#include("stdlib.hhf");
+static
+	inputV1: int16 :=0;
+	inputV2: int16 :=0;
+	inputV3: int16 :=0;
+	tmp    : int16;
+
+procedure middleFinder( x:int16; y:int16; z:int16 ); @nodisplay; @noframe;
+
+static
+	returnAddress: dword;
+	temp	     : int16;
+
+begin middleFinder;
+	pop(returnAddress);
+	pop(temp);
+	pop(z);
+	pop(y);
+	pop(x);
+	push(returnAddress);
+	push(BX);
+
+	mov(x, BX);
+	cmp(BX, y);
+	jl xLy;//x less than y
+	je xEy;//x is equal to y, mid does not exist
+	jg xGy;//x is greater than y
+
+xLy:
+	mov(y, BX);
+	cmp(BX, z);
+	jl MidISy;//if y< z, middle is y
+	je DNEmid;//mid does not exist
+	
+	mov(x, BX);
+	cmp(BX, z);
+	jl MidISz;
+	je DNEmid;
+	jg MidISx;
+xEy:
+	cmp(BX, z);
+	je AllEqual;
+	jne DNEmid;
+
+xGy:
+	cmp(BX, z);
+	jl MidISx;
+	je DNEmid;
+
+	mov(z, BX);
+	cmp(BX, y);
+	jg MidISz;
+	je DNEmid;
+	jl MidISy;
+
+DNEmid:
+	mov(0, AL);
+	stdout.put("Two of them are equal!");
+	stdout.put(nl);
+	jmp ENDfunc;
+
+AllEqual:
+	mov(1, AL);
+	stdout.put("X and Y and Z are all equal!");
+	stdout.newln();
+	jmp ENDfunc;
+
+MidISx:
+	mov(0, AL);
+	stdout.put(x, " in the middle!");
+	stdout.newln();
+	jmp ENDfunc;	
+
+MidISy:
+	mov(0, AL);
+	stdout.put(y, " in the middle!");
+	stdout.newln();
+	jmp ENDfunc;
+
+MidISz:
+	mov(0, AL);
+	stdout.put(z, " in the middle!");
+	stdout.newln();
+	
+ENDfunc:
+	pop(BX);
+	ret();
+
+end middleFinder;
+
+
+begin Unit11;
+      stdout.put("Feed Me X: ");
+      stdin.get(inputV1);
+      stdout.put("Feed Me Y: ");
+      stdin.get(inputV2);
+      stdout.put("Feed Me Z: ");
+      stdin.get(inputV3);
+
+      push(inputV1);
+      push(inputV2);
+      push(inputV3);
+      push(tmp);
+
+      call middleFinder;
+      stdout.put("AL = ");
+      stdout.puti8(AL);
+      stdout.newln();
+ 
+end Unit11;
+

@@ -1,0 +1,55 @@
+//This was written by Xiaojia Quan
+//unit7 convert to binary
+
+program Unit7;
+#include("stdlib.hhf")
+static 
+       input : int8;
+begin Unit7;
+      stdout.put("Gimme a decimal value to print: ");
+      stdin.get(input);
+      mov(input, DH);
+      stdout.put(input, " is ");	
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.put("_");
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);
+
+      shl(1, DH);
+      lahf();
+      and(%0000_0001, AH);
+      stdout.puti8(AH);      	
+      stdout.put(nl);
+
+end Unit7;

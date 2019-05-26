@@ -1,0 +1,63 @@
+program fibadd;
+#include("stdlib.hhf");
+static
+	firstN:int8;
+	secondN:int8;
+	inputN:int8;
+
+procedure fib( value : int8 ); @nodisplay; @noframe; 
+static
+	ra: dword;
+begin fib;
+      pop(ra);
+      pop(BX);
+      push(ra);
+      mov(1,DH); 
+      mov(0, firstN);
+      mov(1, secondN);      
+
+forlpadd:
+cmp(DH, BL);
+jnle endforlpadd;
+cmp(DH,1);
+je inputONE;
+   
+      mov(0,AL);
+      mov(firstN, BH);
+      mov(secondN, AH);
+      add(BH, AL);
+      add(AH, AL);
+      mov(0,firstN);
+      add(AH,firstN);
+      mov(0,secondN);
+      add(AL, secondN);
+      add(1, DH);
+      jmp forlpadd;
+
+inputONE:
+mov(0,firstN);
+mov(1,secondN);
+mov(1,AL);
+
+add(1,DH);
+jmp forlpadd;
+
+endforlpadd:
+jmp endfunc;
+
+endfunc:
+ret();
+end fib;
+
+begin fibadd;
+
+stdout.put("Provide a number: ");
+stdin.get(inputN);
+mov(inputN,BL);
+push(BX);
+call fib;
+stdout.put("fib(", inputN, ") = ");
+stdout.puti8(AL);
+stdout.put(nl);
+
+end fibadd;

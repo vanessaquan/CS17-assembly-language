@@ -1,0 +1,43 @@
+program quiz224;
+#include("stdlib.hhf");
+static
+	input: int8:= 0;	
+
+procedure summingRec( value : int8 ); @nodisplay; @noframe; 
+static
+	returnAddress:dword;
+begin summingRec;
+      pop(returnAddress);
+      pop(BX);
+      push(returnAddress);
+
+recurCOMP:
+      cmp(BH,0);
+      jg recurADD;
+      stdout.put("summingRec(",input,")"," equals ");
+      stdout.puti8(AH);
+      stdout.put("!", nl);
+      jmp exitS;
+
+recurADD:
+	add(BH, AH);
+	sub(1,BH);
+	push(BX);
+	call summingRec;
+
+exitS:
+ret();
+end summingRec;
+
+
+begin quiz224;
+      
+      stdout.put("Provide a number: ");
+      stdin.get(input);
+      mov(0, BX);
+      mov(input, BH);
+      push(BX);
+      mov(0,AH);
+      call summingRec;
+      
+end quiz224;
